@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YELEBARA - Pressing Solaire & Éco-responsable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #F7931E;
+            --bleu-nuit: #1A1A2E;
+            --blanc: #FFFFFF;
+            --gris-clair: #F5F5F5;
+            --gris-fonce: #4B4B4B;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--gris-fonce);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--bleu-nuit);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--blanc);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 60px;  /* Ajustez la hauteur selon vos besoins */
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--blanc);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--orange);
+        }
+
+        .btn-contact {
+            background: var(--orange);
+            color: var(--blanc);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn-contact:hover {
+            transform: scale(1.05);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--bleu-nuit) 0%, #2d2d44 100%);
+            color: var(--blanc);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23F7931E" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        /* Hero Carousel */
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-slider-images {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-slider-image.active {
+            opacity: 0.3; /* Légèrement transparent pour voir le contenu par-dessus */
+        }
+
+        /* Boutons de navigation du carousel */
+        .hero-slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+
+        .hero-slider-btn {
+            pointer-events: all;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-slider-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        .hero-slider-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero-slider-btn.prev {
+            left: 20px;
+        }
+
+        .hero-slider-btn.next {
+            right: 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2; /* Au-dessus du carousel */
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--orange);
+            font-weight: normal;
+            animation: fadeInUp 1s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--blanc);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(247, 147, 30, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--blanc);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--blanc);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--blanc);
+            color: var(--bleu-nuit);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            color: var(--orange);
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            color: var(--bleu-nuit);
+            font-size: 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(247, 147, 30, 0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange), #ff9d3d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            overflow: hidden; /* Pour que les images respectent le cercle */
+        }
+
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* Pour que l'image soit ronde */
+        }
+
+        .service-card h3 {
+            color: var(--bleu-nuit);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card p {
+            color: var(--gris-fonce);
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            color: var(--orange);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* À PROPOS */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: var(--bleu-nuit);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            background: var(--gris-clair);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        /* APP DOWNLOAD */
+        .app-download {
+            background: var(--gris-clair);
+            text-align: center;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .app-btn {
+            background: var(--bleu-nuit);
+            color: var(--blanc);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .app-btn:hover {
+            background: var(--orange);
+            transform: translateY(-3px);
+        }
+
+        .app-icon {
+            font-size: 2.5rem;
+        }
+
+        .app-text span {
+            display: block;
+            font-size: 0.8rem;
+        }
+
+        .app-text strong {
+            font-size: 1.2rem;
+        }
+
+        /* TARIFS */
+        .pricing-table {
+            background: var(--blanc);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pricing-table th {
+            background: var(--bleu-nuit);
+            color: var(--blanc);
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .pricing-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gris-clair);
+        }
+
+        .pricing-table tr:hover {
+            background: var(--gris-clair);
+        }
+
+        .price-cell {
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* CONTACT */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--blanc);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--bleu-nuit);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gris-clair);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--orange);
+            color: var(--blanc);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #e67e0e;
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bleu-nuit);
+            color: var(--blanc);
+            padding: 3rem 20px 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--blanc);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--orange);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="assets/images/yelebara-logo.png" alt="YELEBARA">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil" class="active">Accueil</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <button class="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Contact</button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="accueil">
+        <!-- Carousel d'images en arrière-plan -->
+        <div class="hero-slider">
+            <div class="hero-slider-images">
+                <div class="hero-slider-image active" style="background-image: url('assets/images/slide-01.jpg');"></div>
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-02.jpg');"></div>
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-03.jpg');"></div> 
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-04.jpg');"></div> 
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-05.jpg');"></div> 
+            </div>
+            <!-- Contrôles du carousel -->
+            <div class="hero-slider-controls">
+                <button class="hero-slider-btn prev" onclick="changeSlide(-1)">
+                    <img src="assets/images/prev.png" alt="Précédent">
+                </button>
+                <button class="hero-slider-btn next" onclick="changeSlide(1)">
+                    <img src="assets/images/next.png" alt="Suivant">
+                </button>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>YELEBARA</h1>
+            <h2>Pressing Solaire & Éco-responsable</h2>
+            <p>Service de pressing rapide, écologique et accessible à tous. Profitez de l'énergie solaire pour un nettoyage impeccable de vos vêtements.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">📱 Télécharger l'Application</a>
+                <a href="#services" class="btn-secondary">Découvrir nos services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="apropos">
+        <div class="container">
+            <div class="section-title">
+                <span>NOTRE HISTOIRE</span>
+                <h2>Découvrez YELEBARA</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Une révolution dans le pressing</h3>
+                    <p>YELEBARA est une entreprise innovante qui s'engage à fournir des services de pressing exceptionnels à ses clients. Notre mission est de combiner qualité, rapidité et respect de l'environnement.</p>
+                    <p>Grâce à l'énergie solaire, nous réduisons notre empreinte carbone tout en vous offrant un service impeccable. Notre équipe passionnée travaille chaque jour pour vous garantir des vêtements propres et bien entretenus.</p>
+                    <p>Nous croyons en un avenir durable et accessible à tous. C'est pourquoi nos tarifs restent abordables sans compromis sur la qualité.</p>
+                </div>
+                <div class="about-image">
+                    <img src="assets/images/tricycle.png" alt="Vélo-cargo YELEBARA">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="background: var(--gris-clair);">
+        <div class="container">
+            <div class="section-title">
+                <span>NOS SERVICES</span>
+                <h2>Ce que nous offrons</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/images/lavage.png" alt="Service de lavage professionnel">
+                    </div>
+                    <h3>Lavage</h3>
+                    <p>Lavage professionnel de vos vêtements avec des produits écologiques et de qualité premium.</p>
+                    <div class="price">À partir de 500 FCFA</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/images/repassage.png" alt="Service de repassage professionnel">
+                    </div>
+                    <h3>Repassage</h3>
+                    <p>Repassage soigné et professionnel pour des vêtements impeccables et prêts à porter.</p>
+                    <div class="price">À partir de 300 FCFA</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/images/pressing-complet.png" alt="Service de pressing complet">
+                    </div>
+                    <h3>Pressing Complet</h3>
+                    <p>Service complet incluant lavage, repassage et emballage pour une satisfaction totale.</p>
+                    <div class="price">À partir de 800 FCFA</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Service Entreprises</h3>
+                    <p>Solutions sur mesure pour les entreprises avec tarifs préférentiels et service de collecte.</p>
+                    <div class="price">Devis personnalisé</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TARIFS -->
+    <section id="tarifs">
+        <div class="container">
+            <div class="section-title">
+                <span>TARIFICATION</span>
+                <h2>Nos Tarifs</h2>
+            </div>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Prix</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chemise / Chemisier</td>
+                            <td class="price-cell">500 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Pantalon / Jupe</td>
+                            <td class="price-cell">600 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Costume / Tailleur</td>
+                            <td class="price-cell">1 500 FCFA</td>
+                            <td>48h</td>
+                        </tr>
+                        <tr>
+                            <td>Robe</td>
+                            <td class="price-cell">800 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Manteau / Veste</td>
+                            <td class="price-cell">1 000 FCFA</td>
+                            <td>48h</td>
+                        </tr>
+                        <tr>
+                            <td>Couverture / Édredon</td>
+                            <td class="price-cell">2 000 FCFA</td>
+                            <td>3 jours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- APP DOWNLOAD -->
+    <section class="app-download">
+        <div class="container">
+            <div class="section-title">
+                <span>TÉLÉCHARGEZ</span>
+                <h2>Notre Application Mobile</h2>
+                <p>Gérez vos commandes facilement depuis votre smartphone</p>
+            </div>
+            <div class="app-buttons">
+                <a href="#" class="app-btn">
+                    <div class="app-icon">📱</div>
+                    <div class="app-text">
+                        <span>Télécharger sur</span>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+                <a href="#" class="app-btn">
+                    <div class="app-icon">🍎</div>
+                    <div class="app-text">
+                        <span>Télécharger sur</span>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <span>CONTACTEZ-NOUS</span>
+                <h2>Envoyez-nous un message</h2>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="nom">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Téléphone *</label>
+                    <input type="tel" id="telephone" name="telephone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Envoyer le message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>YELEBARA</h3>
+                <p>Pressing solaire et éco-responsable pour un avenir durable.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📧 <a href="mailto:contact@sifi-burkina.com">contact@sifi-burkina.com</a></li>
+                    <li>📱 <a href="tel:+22671882356">+226 71 88 23 56</a></li>
+                    <li>📍 <a href="https://www.google.com/maps/search/?api=1&query=Patte+d'Oie,+Ouagadougou">BV 30027 Ouaga, Patte d'Oie</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2025 YELEBARA. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slider-image');
+        const totalSlides = slides.length;
+
+        function changeSlide(direction) {
+            // Retirer la classe active de l'image actuelle
+            slides[currentSlide].classList.remove('active');
+            
+            // Calculer la nouvelle position
+            currentSlide += direction;
+            
+            // Boucler : si on dépasse, revenir au début/fin
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            // Ajouter la classe active à la nouvelle image
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Changement automatique toutes les 5 secondes (optionnel)
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Empêcher le scroll du carousel d'interférer avec le scroll de la page
+        document.querySelector('.hero-slider-controls').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.add('active');
+                } else {
+                    document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.remove('active');
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message envoyé avec succès ! Nous vous contacterons bientôt.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
