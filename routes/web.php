@@ -3,11 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-// Servir directement le fichier yelebara.html
+// Page d'accueil avec la vue welcome
 Route::get('/', function () {
-    return response()->file(public_path('yelebara.html'));
-});
+    return view('welcome');
+})->name('home');
 
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-Route::get('/services', [HomeController::class, 'services'])->name('services');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+// Autres pages
+Route::get('/about', function () {
+    return view('welcome');
+})->name('about');
+
+Route::get('/services', function () {
+    return view('welcome');
+})->name('services');
+
+Route::get('/contact', function () {
+    return view('welcome');
+})->name('contact');
