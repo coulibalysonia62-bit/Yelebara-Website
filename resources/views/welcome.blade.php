@@ -45,8 +45,28 @@
             align-items: center;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--blanc);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
         .logo img {
-            height: 60px;
+            height: 60px;  /* Ajustez la hauteur selon vos besoins */
             width: auto;
             object-fit: contain;
         }
@@ -55,8 +75,6 @@
             display: flex;
             list-style: none;
             gap: 2rem;
-            margin: 0;
-            padding: 0;
         }
 
         nav a {
@@ -73,44 +91,42 @@
         .btn-contact {
             background: var(--orange);
             color: var(--blanc);
-            padding: 12px 25px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
             border: none;
-            border-radius: 30px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: bold;
+            transition: transform 0.3s;
         }
 
         .btn-contact:hover {
             transform: scale(1.05);
         }
 
-        /* ESPACEMENT POUR LE HEADER FIXE */
-        .hero {
-            margin-top: 80px;
-        }
-
         /* HERO SECTION */
         .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--bleu-nuit) 0%, #2d2d44 100%);
+            color: var(--blanc);
+            padding: 100px 20px;
+            text-align: center;
             position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            background: #000;
         }
 
-        .hero-overlay {
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23F7931E" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
         }
 
+        /* Hero Carousel */
         .hero-slider {
             position: absolute;
             top: 0;
@@ -118,6 +134,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            overflow: hidden;
         }
 
         .hero-slider-images {
@@ -132,125 +149,139 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .hero-slider-image.active {
-            opacity: 1;
+            opacity: 0.3; /* Légèrement transparent pour voir le contenu par-dessus */
         }
 
+        /* Boutons de navigation du carousel */
         .hero-slider-controls {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 100%;
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
         }
 
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: var(--orange);
-            transform: scale(1.2);
-        }
-
-        .slider-dot:hover {
+        .hero-slider-btn {
+            pointer-events: all;
             background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .hero .container {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #fff;
-            padding: 2rem;
-            max-width: 1200px;
+        .hero-slider-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        .hero-slider-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero-slider-btn.prev {
+            left: 20px;
+        }
+
+        .hero-slider-btn.next {
+            right: 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2; /* Au-dessus du carousel */
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
         }
 
         .hero h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--orange);
+            font-weight: normal;
+            animation: fadeInUp 1s;
         }
 
         .hero p {
             font-size: 1.2rem;
-            line-height: 1.8;
-            color: #fff;
-            font-weight: 500;
-            margin: 0 auto 2.5rem;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.6);
-            background: rgba(0,0,0,0.4);
-            padding: 15px 25px;
-            border-radius: 12px;
-            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
 
-        .hero-buttons {
+        .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 3rem;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .btn-primary {
             background: var(--orange);
-            color: #fff;
+            color: var(--blanc);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(247, 147, 30, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(247, 147, 30, 0.3);
+            color: var(--blanc);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--blanc);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
         }
 
         .btn-secondary:hover {
-            background: #fff;
+            background: var(--blanc);
             color: var(--bleu-nuit);
         }
 
         /* SECTIONS */
-        .section {
-            padding: 80px 0;
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-title {
@@ -261,63 +292,75 @@
         .section-title span {
             color: var(--orange);
             text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 2px;
-            font-size: 0.9rem;
-            font-weight: 600;
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
             color: var(--bleu-nuit);
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-top: 0.5rem;
         }
 
-        .section-title p {
-            font-size: 1.2rem;
-            color: var(--gris-fonce);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* SERVICES SECTION */
+        /* SERVICES */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
         .service-card {
-            background: white;
+            background: var(--blanc);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
             text-align: center;
-            transition: transform 0.3s ease;
         }
 
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(247, 147, 30, 0.2);
         }
 
         .service-icon {
-            font-size: 3rem;
-            color: var(--orange);
-            margin-bottom: 1.5rem;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange), #ff9d3d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            overflow: hidden; /* Pour que les images respectent le cercle */
+        }
+
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* Pour que l'image soit ronde */
         }
 
         .service-card h3 {
-            font-size: 1.5rem;
             color: var(--bleu-nuit);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         .service-card p {
             color: var(--gris-fonce);
-            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
-        /* ABOUT SECTION */
+        .price {
+            color: var(--orange);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* À PROPOS */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -326,24 +369,37 @@
         }
 
         .about-text h3 {
-            font-size: 2rem;
             color: var(--bleu-nuit);
+            font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
         .about-text p {
-            color: var(--gris-fonce);
+            margin-bottom: 1rem;
             line-height: 1.8;
-            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            background: var(--gris-clair);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .about-image img {
             width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
         }
+        .about-content {
+    font-family: "Poppins", sans-serif; /* Ajout ici */
+}
 
-        /* APP DOWNLOAD SECTION */
+        /* APP DOWNLOAD */
         .app-download {
             background: var(--gris-clair);
             text-align: center;
@@ -351,73 +407,86 @@
 
         .app-buttons {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-top: 2rem;
             flex-wrap: wrap;
+            margin-top: 2rem;
         }
 
         .app-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .app-btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .app-store {
-            background: #000;
-            color: #fff;
-        }
-
-        .google-play {
-            background: #4285F4;
-            color: #fff;
-        }
-
-        /* CONTACT SECTION */
-        .contact {
             background: var(--bleu-nuit);
-            color: white;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .contact-info h3, .contact-form h3 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--orange);
-        }
-
-        .contact-info-item {
+            color: var(--blanc);
+            padding: 1rem 2rem;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .contact-info-item i {
-            color: var(--orange);
-            font-size: 1.5rem;
-            width: 30px;
+        .app-btn:hover {
+            background: var(--orange);
+            transform: translateY(-3px);
         }
 
-        .contact-form {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
+        .app-icon {
+            font-size: 2.5rem;
+        }
+
+        .app-text span {
+            display: block;
+            font-size: 0.8rem;
+        }
+
+        .app-text strong {
+            font-size: 1.2rem;
+        }
+
+        /* TARIFS */
+        .pricing-table {
+            background: var(--blanc);
             border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pricing-table th {
+            background: var(--bleu-nuit);
+            color: var(--blanc);
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .pricing-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gris-clair);
+        }
+
+        .pricing-table tr:hover {
+            background: var(--gris-clair);
+        }
+
+        .price-cell {
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* CONTACT */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--blanc);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .form-group {
@@ -427,18 +496,18 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            color: var(--bleu-nuit);
+            font-weight: 600;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem;
+            border: 2px solid var(--gris-clair);
             border-radius: 8px;
-            background: rgba(255,255,255,0.05);
-            color: white;
-            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
@@ -447,108 +516,63 @@
             border-color: var(--orange);
         }
 
-        .submit-btn {
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            width: 100%;
             background: var(--orange);
-            color: white;
-            padding: 15px 30px;
+            color: var(--blanc);
+            padding: 1rem;
             border: none;
-            border-radius: 30px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
-        .submit-btn:hover {
+        .btn-submit:hover {
+            background: #e67e0e;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(247, 147, 30, 0.3);
-        }
-
-        /* FAQ SECTION */
-        .faq {
-            background: var(--gris-clair);
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .faq-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .faq-question {
-            font-weight: 600;
-            color: var(--bleu-nuit);
-            margin-bottom: 1rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            color: var(--gris-fonce);
-            line-height: 1.6;
         }
 
         /* FOOTER */
         footer {
             background: var(--bleu-nuit);
-            color: white;
-            padding: 3rem 0 1rem;
+            color: var(--blanc);
+            padding: 3rem 20px 1rem;
         }
 
         .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
         }
 
-        .footer-section h5 {
+        .footer-section h3 {
             color: var(--orange);
-            margin-bottom: 1.5rem;
-            font-weight: bold;
+            margin-bottom: 1rem;
         }
 
         .footer-section ul {
             list-style: none;
-            padding: 0;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
         }
 
         .footer-section a {
-            color: #ccc;
+            color: var(--blanc);
             text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
             transition: color 0.3s;
         }
 
         .footer-section a:hover {
-            color: var(--orange);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
             color: var(--orange);
         }
 
@@ -559,22 +583,27 @@
         }
 
         /* ANIMATIONS */
-        @keyframes fadeIn {
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 0.8s ease forwards;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -602,135 +631,197 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img src="{{ asset('assets/images/yelebara-logo.png') }}" alt="YELEBARA">
+                <img src="assets/images/yelebara-logo.png" alt="YELEBARA">
             </div>
             <nav>
                 <ul>
-                    <li><a href="/" class="active">Accueil</a></li>
+                    <li><a href="#accueil" class="active">Accueil</a></li>
                     <li><a href="/about">À propos</a></li>
                     <li><a href="/services">Services</a></li>
-                    <li><a href="/partenariat">Partenariat</a></li>
+                    <li><a href="/partenariat">Tarifs</a></li>
                     <li><a href="/faq">FAQ</a></li>
                 </ul>
             </nav>
-            <button class="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Nous contacter</button>
+            <button class="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Contact</button>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section id="accueil" class="hero" style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000;">
-        <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1;"></div>
-        <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
-            <div class="hero-slider-images" style="position: relative; width: 100%; height: 100%;">
-                <div class="hero-slider-image active" style="background-image: url('{{ asset('assets/images/slide-01.jpg') }}');"></div>
-                <div class="hero-slider-image" style="background-image: url('{{ asset('assets/images/slide-02.jpg') }}');"></div>
-                <div class="hero-slider-image" style="background-image: url('{{ asset('assets/images/slide-03.jpg') }}');"></div>
+    <section class="hero" id="accueil">
+        <!-- Carousel d'images en arrière-plan -->
+        <div class="hero-slider">
+            <div class="hero-slider-images">
+                <div class="hero-slider-image active" style="background-image: url('assets/images/slide-01.jpg');"></div>
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-02.jpg');"></div>
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-03.jpg');"></div> 
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-04.jpg');"></div> 
+                <div class="hero-slider-image" style="background-image: url('assets/images/slide-05.jpg');"></div> 
+            </div>
+            <!-- Contrôles du carousel -->
+            <div class="hero-slider-controls">
+                <button class="hero-slider-btn prev" onclick="changeSlide(-1)">
+                    <img src="assets/images/prev.png" alt="Précédent">
+                </button>
+                <button class="hero-slider-btn next" onclick="changeSlide(1)">
+                    <img src="assets/images/next.png" alt="Suivant">
+                </button>
             </div>
         </div>
         
-        <div class="container" style="position: relative; z-index: 2; text-align: center; color: #fff; padding: 2rem; max-width: 1200px; margin: 0 auto;">
-            <h1 style="font-size: 3.5rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                YELEBARA
-            </h1>
-            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 400; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">
-                Pressing solaire & Eco-responsable
-            </h2>
-            <p style="font-size: 1.2rem; line-height: 1.8; color: #fff; font-weight: 500; margin: 0 auto 2.5rem; text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.6); background: rgba(0,0,0,0.4); padding: 15px 25px; border-radius: 12px; max-width: 800px;">Service de pressing rapide, écologique et accessible à tous. Profitez de l'énergie solaire pour un nettoyage impeccable de vos vêtements.</p>
-            <div class="hero-buttons">
-                <a href="#app-download" class="btn-primary">
-                    <span>📱</span> Télécharger l'Application
-                </a>
-                <a href="/services" class="btn-secondary">
-                    <span>🔍</span> Découvrir nos services
-                </a>
+        <div class="hero-content">
+            <h1>YELEBARA</h1>
+            <h2>Pressing Solaire & Éco-responsable</h2>
+            <p>Service de pressing rapide, écologique et accessible à tous. Profitez de l'énergie solaire pour un nettoyage impeccable de vos vêtements.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">📱 Télécharger l'Application</a>
+                <a href="#services" class="btn-secondary">Découvrir nos services</a>
             </div>
-        </div>
-        
-        <!-- Carousel Controls -->
-        <div class="hero-slider-controls">
-            <span class="slider-dot active" data-slide="0"></span>
-            <span class="slider-dot" data-slide="1"></span>
-            <span class="slider-dot" data-slide="2"></span>
         </div>
     </section>
 
     <!-- À PROPOS -->
-    <section id="apropos" class="section fade-in">
+    <section id="apropos">
         <div class="container">
-            <div class="section-title fade-in">
+            <div class="section-title">
                 <span>NOTRE HISTOIRE</span>
                 <h2>Découvrez YELEBARA</h2>
-                <p>Une révolution dans le pressing écologique</p>
             </div>
-            <div class="about-content" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease;">
-                <div class="about-text fade-in-left">
+            <div class="about-content">
+                <div class="about-text">
                     <h3>Une révolution dans le pressing</h3>
                     <p>YELEBARA est un produit de la société SIFI Burkina qui s'engage à fournir des services de pressing exceptionnels à ses clients. Notre mission est de combiner qualité, rapidité et respect de l'environnement.</p>
-                    <p>Grâce à l'énergie solaire, nous réduisons notre empreinte carbone tout en vous offrant un service impeccable accessible à tous les couches sociales. Notre équipe passionnée travaille chaque jour pour vous garantir des vêtements propres et bien entretenus.</p>
+                    <p>Grâce à l'énergie solaire, nous réduisons notre empreinte carbone tout en vous offrant un service impeccable accessible à tous les couches socieles. Notre équipe passionnée travaille chaque jour pour vous garantir des vêtements propres et bien entretenus.</p>
                     <p>Nous croyons en un avenir durable et accessible à tous. C'est pourquoi nos tarifs restent abordables sans compromis sur la qualité.</p>
                 </div>
-                <div class="about-image fade-in-right delay-1">
-                    <img src="{{ asset('assets/images/tricycle.png') }}" alt="Vélo-cargo YELEBARA">
+                <div class="about-image">
+                    <img src="assets/images/tricycle.png" alt="Vélo-cargo YELEBARA">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="section fade-in">
+    <section id="services" style="background: var(--gris-clair);">
         <div class="container">
-            <div class="section-title fade-in">
+            <div class="section-title">
                 <span>NOS SERVICES</span>
                 <h2>Ce que nous offrons</h2>
-                <p>Des solutions professionnelles adaptées à vos besoins</p>
             </div>
             <div class="services-grid">
-                <div class="service-card fade-in delay-1">
+                <div class="service-card">
                     <div class="service-icon">
-                        <img src="{{ asset('assets/images/lavage.png') }}" alt="Service de lavage professionnel">
+                        <img src="assets/images/lavage.png" alt="Service de lavage professionnel">
                     </div>
-                    <h3>Lavage à domicile</h3>
+                    <h3>Lavage</h3>
                     <p>Lavage professionnel de vos vêtements avec des produits écologiques et de qualité premium.</p>
+                    <div class="price">À partir de 500 FCFA</div>
                 </div>
-                <div class="service-card fade-in delay-2">
+                <div class="service-card">
                     <div class="service-icon">
-                        <img src="{{ asset('assets/images/repassage.png') }}" alt="Service de repassage professionnel">
+                        <img src="assets/images/repassage.png" alt="Service de repassage professionnel">
                     </div>
                     <h3>Repassage</h3>
                     <p>Repassage soigné et professionnel pour des vêtements impeccables et prêts à porter.</p>
+                    <div class="price">À partir de 50 FCFA</div>
                 </div>
-                <div class="service-card fade-in delay-3">
+                <div class="service-card">
                     <div class="service-icon">
-                        <img src="{{ asset('assets/images/pressing-complet.png') }}" alt="Service de pressing complet">
+                        <img src="assets/images/pressing-complet.png" alt="Service de pressing complet">
                     </div>
                     <h3>Service Complet</h3>
                     <p>Service complet incluant lavage, repassage et emballage pour une satisfaction totale.</p>
+                    <div class="price">À partir de 800 FCFA</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Service spécial clinique</h3>
+                    <p>collecte et nettoyage de linge sur site, respect des normes d'hygiène et solution écologique grâce à l'énergie solaire.</p>
+                    <div class="price">Devis personnalisé</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h4>Service spécial hotel</h4>
+                    <p>service rapide et flexible directement sur place, entretien de votre linge avec soin et solution respectueuse de l'environnement.</p>
+                    <div class="price">Devis personnalisé</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- APP DOWNLOAD -->
-    <section id="app-download" class="section app-download fade-in">
+    <!-- TARIFS -->
+    <section id="tarifs">
         <div class="container">
-            <div class="section-title fade-in">
+            <div class="section-title">
+                <span>PARTENARIAT</span>
+                <h2>Devenir partenaires</h2>
+            </div>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Prix</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chemise / Chemisier</td>
+                            <td class="price-cell">500 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Pantalon / Jupe</td>
+                            <td class="price-cell">600 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Costume / Tailleur</td>
+                            <td class="price-cell">1 500 FCFA</td>
+                            <td>48h</td>
+                        </tr>
+                        <tr>
+                            <td>Robe</td>
+                            <td class="price-cell">800 FCFA</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>Manteau / Veste</td>
+                            <td class="price-cell">1 000 FCFA</td>
+                            <td>48h</td>
+                        </tr>
+                        <tr>
+                            <td>Couverture / Édredon</td>
+                            <td class="price-cell">2 000 FCFA</td>
+                            <td>3 jours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- APP DOWNLOAD -->
+    <section class="app-download">
+        <div class="container">
+            <div class="section-title">
                 <span>TÉLÉCHARGEZ</span>
                 <h2>Notre Application Mobile</h2>
                 <p>Gérez vos commandes facilement depuis votre smartphone</p>
             </div>
-            <div class="app-buttons fade-in-up delay-1">
-                <a href="#" class="app-btn app-store">
-                    <div class="app-icon">🍎</div>
-                    <div class="app-text">
-                        <span>Télécharger sur</span>
-                        <strong>App Store</strong>
-                    </div>
-                </a>
-                <a href="#" class="app-btn google-play">
+            <div class="app-buttons">
+                <a href="#" class="app-btn">
                     <div class="app-icon">📱</div>
                     <div class="app-text">
                         <span>Télécharger sur</span>
                         <strong>Google Play</strong>
+                    </div>
+                </a>
+                <a href="#" class="app-btn">
+                    <div class="app-icon">🍎</div>
+                    <div class="app-text">
+                        <span>Télécharger sur</span>
+                        <strong>App Store</strong>
                     </div>
                 </a>
             </div>
@@ -738,164 +829,133 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section contact fade-in">
+    <section id="contact">
         <div class="container">
-            <div class="section-title fade-in">
+            <div class="section-title">
                 <span>CONTACTEZ-NOUS</span>
                 <h2>Envoyez-nous un message</h2>
             </div>
-            <div class="contact-content">
-                <div class="contact-info fade-in-left delay-1">
-                    <h3>Informations de contact</h3>
-                    <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Adresse</strong><br>
-                            Ouagadougou, Burkina Faso
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <strong>Téléphone</strong><br>
-                            +226 25 35 67 89
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong><br>
-                            contact@yelebara.bf
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <strong>Horaires</strong><br>
-                            Lun-Ven: 7h-20h
-                        </div>
-                    </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="nom">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required>
                 </div>
-                <div class="contact-form fade-in-right delay-2">
-                    <h3>Envoyez un message</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="nom">Nom complet</label>
-                            <input type="text" id="nom" name="nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Envoyer le message</button>
-                    </form>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="telephone">Téléphone *</label>
+                    <input type="tel" id="telephone" name="telephone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Envoyer le message</button>
+            </form>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h5>YELEBARA</h5>
-                    <p>Pressing solaire et éco-responsable, engagé dans la fourniture de services de qualité tout en préservant notre environnement.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h5>Services</h5>
-                    <ul>
-                        <li><a href="/services">Lavage à domicile</a></li>
-                        <li><a href="/services">Repassage</a></li>
-                        <li><a href="/services">Service complet</a></li>
-                        <li><a href="/services">Services spécialisés</a></li>
-                        <li><a href="/services">Livraison express</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h5>Contact</h5>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Ouagadougou, Burkina Faso</li>
-                        <li><i class="fas fa-phone"></i> +226 25 35 67 89</li>
-                        <li><i class="fas fa-envelope"></i> contact@yelebara.bf</li>
-                        <li><i class="fas fa-clock"></i> Lun-Ven: 7h-20h</li>
-                    </ul>
-                </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>YELEBARA</h3>
+                <p>Pressing solaire et éco-responsable pour un avenir durable.</p>
             </div>
-            <div class="footer-bottom">
-                <p>Copyright © 2024 YELEBARA. Tous droits réservés. | Powered by SIFI Burkina</p>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                </ul>
             </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📧 <a href="mailto:contact@sifi-burkina.com">contact@sifi-burkina.com</a></li>
+                    <li>📱 <a href="tel:+22671882356">+226 71 88 23 56</a></li>
+                    <li>📍 <a href="https://www.google.com/maps/search/?api=1&query=Patte+d'Oie,+Ouagadougou">BV 30027 Ouaga, Patte d'Oie</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2025 YELEBARA. Tous droits réservés.</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Carousel functionality
-            const slides = document.querySelectorAll('.hero-slider-image');
-            const dots = document.querySelectorAll('.slider-dot');
-            let currentSlide = 0;
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slider-image');
+        const totalSlides = slides.length;
+
+        function changeSlide(direction) {
+            // Retirer la classe active de l'image actuelle
+            slides[currentSlide].classList.remove('active');
             
-            function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                
-                slides[index].classList.add('active');
-                dots[index].classList.add('active');
-                currentSlide = index;
+            // Calculer la nouvelle position
+            currentSlide += direction;
+            
+            // Boucler : si on dépasse, revenir au début/fin
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
             }
             
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => showSlide(index));
+            // Ajouter la classe active à la nouvelle image
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Changement automatique toutes les 5 secondes (optionnel)
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Empêcher le scroll du carousel d'interférer avec le scroll de la page
+        document.querySelector('.hero-slider-controls').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
-            
-            setInterval(() => {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }, 5000);
+        });
 
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
+        // Active navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.add('active');
+                } else {
+                    document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.remove('active');
+                }
             });
+        });
 
-            // Fade in animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message envoyé avec succès ! Nous vous contacterons bientôt.');
+            e.target.reset();
         });
     </script>
 </body>

@@ -3,29 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-// Page d'accueil - garde la vue welcome intacte
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
-// Pages séparées pour la navigation
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+// Page d'accueil
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/services', function () {
-    return view('services');
-})->name('services');
+// À propos
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+// Services
+Route::get('/services', [HomeController::class, 'services'])->name('services');
 
-// Pages supplémentaires
-Route::get('/partenariat', function () {
-    return view('partenariat');
-})->name('partenariat');
-
-Route::get('/faq', function () {
-    return view('faq');
-})->name('faq');
+// Contact
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
